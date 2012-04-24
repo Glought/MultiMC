@@ -1093,7 +1093,7 @@ namespace MultiMC
 		{
 			try
 			{
-				if (!File.Exists(Properties.Resources.LastLoginFileName))
+				if (!File.Exists(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName)))
 				{
 					username = password = "";
 					return;
@@ -1117,7 +1117,7 @@ namespace MultiMC
 
 						ICryptoTransform decryptor = rijAlg.CreateDecryptor(key, IV);
 
-						using (FileStream fsDecrypt = File.OpenRead(Properties.Resources.LastLoginFileName))
+						using (FileStream fsDecrypt = File.OpenRead(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName)))
 						{
 							CryptoStream csDecrypt =
 								new CryptoStream(fsDecrypt, decryptor, CryptoStreamMode.Read);
@@ -1173,7 +1173,7 @@ namespace MultiMC
 
 					try
 					{
-						using (FileStream fsEncrypt = File.Open(Properties.Resources.LastLoginFileName,
+						using (FileStream fsEncrypt = File.Open(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName),
 																FileMode.Create))
 						{
 							using (CryptoStream csEncrypt =
