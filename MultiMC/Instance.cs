@@ -79,6 +79,32 @@ namespace MultiMC
 			}
 			return (Instance[])instList.ToArray(typeof(Instance));
 		}
+        public static String[] LoadInstancesNames(string instDir)
+        {
+            if (!Directory.Exists(instDir))
+            {
+                return new String[0];
+            }
+
+            ArrayList instList = new ArrayList();
+            foreach (string dir in Directory.GetDirectories(instDir))
+            {
+                Console.WriteLine("Loading instance from " + dir + "...");
+                Instance inst = null;
+                try
+                {
+                    inst = LoadInstance(dir);
+                }
+                catch (InvalidInstanceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                if (inst != null)
+                    instList.Add(inst.Name);
+            }
+            return (string[])instList.ToArray(typeof(string));
+        }
 
 		/// <summary>
 		/// Loads the instance from the specified directory.
@@ -375,6 +401,7 @@ namespace MultiMC
 				AutoSave();
 			}
 		}
+
 
 		/// <summary>
 		/// The directory where mods will be stored

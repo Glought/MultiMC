@@ -275,6 +275,12 @@ namespace MultiMC.WinGUI
 			remove { checkUpdateButton.Click -= value; }
 		}
 
+        public event EventHandler ImportInstLoginInfoClicked
+        {
+            add { importLoginInfoButton.Click += value; }
+            remove { importLoginInfoButton.Click -= value; }
+        }
+
 		public event EventHandler HelpClicked
 		{
 			add { helpButton.Click += value; }
@@ -391,7 +397,6 @@ namespace MultiMC.WinGUI
 				if (ViewInstFolderClicked != null)
 					ViewInstFolderClicked(this, args);
 				break;
-
 			case InstAction.Delete:
 				if (DeleteInstClicked != null)
 					DeleteInstClicked(this, args);
@@ -424,7 +429,7 @@ namespace MultiMC.WinGUI
 			EditMods,
 			RebuildJar,
 			ViewFolder,
-
+            ImportInstLoginInfo,
 			Delete,
 		}
 
@@ -462,7 +467,6 @@ namespace MultiMC.WinGUI
 		{
 			OnInstanceAction(InstAction.ViewFolder);
 		}
-
 		private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			OnInstanceAction(InstAction.Delete);

@@ -32,6 +32,8 @@ namespace MultiMC.GUI
 
 		IEditModsDialog EditModsDialog(Instance inst);
 
+        IImportLoginInfoDialog ImportLoginInfoDialog();
+
 		ILoginDialog LoginDialog(string errMsg = null);
 
 		IDialog DeleteDialog();

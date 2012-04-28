@@ -269,6 +269,11 @@ namespace MultiMC.GTKGUI
 				CheckUpdatesClicked(this, EventArgs.Empty);
 		}
 
+        void OnImportInstLoginInfoClicked(object sender, EventArgs e)
+        {
+            if (ImportInstLoginInfoClicked != null)
+                ImportInstLoginInfoClicked(this, EventArgs.Empty);
+        }
 
 		void OnHelpClicked(object sender, EventArgs e)
 		{
@@ -324,6 +329,7 @@ namespace MultiMC.GTKGUI
 			if (ViewInstFolderClicked != null)
 				ViewInstFolderClicked(this, new InstActionEventArgs(SelectedInst));
 		}
+
 
 		void OnDeleteClicked(object sender, EventArgs e)
 		{
@@ -422,6 +428,8 @@ namespace MultiMC.GTKGUI
 
 		public event EventHandler CheckUpdatesClicked;
 
+        public event EventHandler ImportInstLoginInfoClicked;
+
 		public event EventHandler HelpClicked;
 
 		public event EventHandler AboutClicked;
@@ -437,6 +445,8 @@ namespace MultiMC.GTKGUI
 		public event EventHandler<InstActionEventArgs> RebuildJarClicked;
 
 		public event EventHandler<InstActionEventArgs> ViewInstFolderClicked;
+
+        
 
 		public event EventHandler<InstActionEventArgs> DeleteInstClicked;
 		

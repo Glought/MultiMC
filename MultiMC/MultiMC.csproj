@@ -11,6 +11,7 @@
     <RootNamespace>MultiMC</RootNamespace>
     <AssemblyName>MultiMC</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -147,6 +147,7 @@
     <Compile Include="GUI\IGUIManager.cs" />
     <Compile Include="GUI\IImageList.cs" />
     <Compile Include="GUI\ILoginDialog.cs" />
+    <Compile Include="GUI\IImportLoginInfoDialog.cs" />
     <Compile Include="GUI\INotesDialog.cs" />
     <Compile Include="GUI\IRestoreBackupDialog.cs" />
     <Compile Include="GUI\ISaveManagerDialog.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="ConfigFile.cs" />
     <Compile Include="Tasks\Downloader.cs" />
     <Compile Include="Tasks\DirCopyTask.cs" />
+    <Compile Include="Tasks\LoginCopyTask.cs" />
     <Compile Include="Tasks\Modder.cs" />
     <Compile Include="Tasks\RestoreTask.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
@@ -207,6 +209,12 @@
     </Compile>
     <Compile Include="WinGUI\ConsoleForm.Designer.cs">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinGUI\ImportLoginInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinGUI\ImportLoginInfoForm.Designer.cs">
+      <DependentUpon>ImportLoginInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WinGUI\TextInputDialog.cs">
       <SubType>Form</SubType>
@@ -319,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinGUI\ConsoleForm.resx">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinGUI\ImportLoginInfoForm.resx">
+      <DependentUpon>ImportLoginInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinGUI\TextInputDialog.resx">
       <DependentUpon>TextInputDialog.cs</DependentUpon>
@@ -443,6 +454,7 @@
     <Content Include="WinGUI\ToolbarIcons\AboutIcon.png" />
     <Content Include="WinGUI\ToolbarIcons\CheckUpdateIcon.png" />
     <Content Include="WinGUI\ToolbarIcons\HelpIcon.png" />
+    <None Include="WinGUI\ToolbarIcons\importexporticon.png" />
     <Content Include="WinGUI\ToolbarIcons\NewInstIcon.png" />
     <Content Include="WinGUI\ToolbarIcons\RefreshInstIcon.png" />
     <Content Include="WinGUI\ToolbarIcons\RenameIcon.png" />
@@ -452,10 +464,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"C:\Program Files\Java\jdk1.6.0_27\bin\javac" -d $(ProjectDir)Launcher $(ProjectDir)Launcher\MultiMCLauncher.java</PreBuildEvent>
+    <PreBuildEvent>"C:\Program Files\Java\jdk1.6.0_24\bin\javac" -d $(ProjectDir)Launcher $(ProjectDir)Launcher\MultiMCLauncher.java</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) C:\Users\Andrew\Dropbox\Public\MultiMC.exe</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) C:\visualstudio10\MultiMC.exe</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

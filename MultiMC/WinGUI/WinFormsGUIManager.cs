@@ -76,6 +76,11 @@ namespace MultiMC.WinGUI
 			return new EditModsForm(inst);
 		}
 
+        public IImportLoginInfoDialog ImportLoginInfoDialog()
+        {
+            return new ImportLoginInfoForm();
+        }
+
 		public void Run(IMainWindow mainWindow)
 		{
 			Application.Run(mainWindow as MainForm);

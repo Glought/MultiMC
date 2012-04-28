@@ -66,7 +66,7 @@ namespace MultiMC
 
 			MainWindow.SettingsClicked += SettingsClicked;
 			MainWindow.CheckUpdatesClicked += UpdateClicked;
-
+            MainWindow.ImportInstLoginInfoClicked += ImportInstLoginInfoClicked;
 			MainWindow.AboutClicked += AboutClicked;
 
 			// Instance context menu
@@ -79,7 +79,7 @@ namespace MultiMC
 			MainWindow.EditModsClicked += EditModsClicked;
 			MainWindow.RebuildJarClicked += RebuildClicked;
 			MainWindow.ViewInstFolderClicked += ViewInstFolderClicked;
-
+            
 			MainWindow.DeleteInstClicked += DeleteInstClicked;
 			// on linux, provide the possiblity to nuke OpenAL libs
 			if(OSUtils.OS == OSEnum.Linux)
@@ -348,8 +348,8 @@ namespace MultiMC
 		{
 			string instDir = Path.GetFullPath(AppSettings.Main.InstanceDir);
 
-			if (!Directory.Exists(instDir))
-				Directory.CreateDirectory(instDir);
+            if (!Directory.Exists(instDir))
+                Directory.CreateDirectory(instDir);
 			Process.Start(instDir);
 		}
 
@@ -378,7 +378,26 @@ namespace MultiMC
 			{
 				DownloadNewVersion();
 			}
+
 		}
+        
+        void ImportInstLoginInfoClicked(object sender, EventArgs e)
+        {
+            IImportLoginInfoDialog importLoginInfoDlg = GUIManager.Main.ImportLoginInfoDialog();
+            importLoginInfoDlg.ShowInTaskbar = false;
+
+            importLoginInfoDlg.Response += (o, args) =>
+            {
+                if (args.Response == DialogResponse.OK)
+                importLoginInfoDlg.Close();
+                if (args.Response == DialogResponse.Cancel)
+                importLoginInfoDlg.Close();
+            };
+
+            importLoginInfoDlg.Parent = MainWindow;
+            importLoginInfoDlg.DefaultPosition = DefWindowPosition.CenterParent;
+            importLoginInfoDlg.Run();
+        }
 		#endregion
 
 		#region Instance Menu
@@ -512,7 +531,10 @@ namespace MultiMC
 			Process.Start(SelectedInst.RootDir);
 		}
 
-		void DeleteInstClicked(object sender, InstActionEventArgs e)
+        
+
+        
+        void DeleteInstClicked(object sender, InstActionEventArgs e)
 		{
 			IDialog deleteDialog = GUIManager.Main.DeleteDialog();
 			deleteDialog.ShowInTaskbar = false;
@@ -1093,12 +1115,12 @@ namespace MultiMC
 		{
 			try
 			{
-				if (!File.Exists(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName)))
-				{
-					username = password = "";
-					return;
-				}
 
+                if (!File.Exists(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName)))
+                {
+                    username = password = "";
+                    return;
+                }
 				using (SHA384 sha = SHA384.Create())
 				{
 					byte[] hash = sha.ComputeHash(
@@ -1117,7 +1139,7 @@ namespace MultiMC
 
 						ICryptoTransform decryptor = rijAlg.CreateDecryptor(key, IV);
 
-						using (FileStream fsDecrypt = File.OpenRead(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName)))
+                        using (FileStream fsDecrypt = File.OpenRead(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName)))
 						{
 							CryptoStream csDecrypt =
 								new CryptoStream(fsDecrypt, decryptor, CryptoStreamMode.Read);
@@ -1173,7 +1195,9 @@ namespace MultiMC
 
 					try
 					{
-						using (FileStream fsEncrypt = File.Open(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName),
+                        
+                        
+                        using (FileStream fsEncrypt = File.Open(Path.Combine(SelectedInst.RootDir, Properties.Resources.LastLoginFileName),
 																FileMode.Create))
 						{
 							using (CryptoStream csEncrypt =
