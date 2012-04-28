@@ -137,5 +137,9 @@ namespace MultiMC.GTKGUI
 		{
 			return new TextInputDialog(message,text,mainWindow);
 		}
+		public IImportLoginInfoDialog ImportLoginInfoDialog()
+                {
+                        throw new NotImplementedException();
+                }
 	}
 }
