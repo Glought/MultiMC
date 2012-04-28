@@ -45,8 +45,9 @@ namespace MultiMC.GUI
 
 		event EventHandler HelpClicked;
 		event EventHandler AboutClicked;
-
-
+                
+                event EventHandler ImportInstLoginInfoClicked;
+                
 		event EventHandler<InstActionEventArgs> InstanceLaunched;
 
 		event EventHandler<InstActionEventArgs> ChangeIconClicked;
